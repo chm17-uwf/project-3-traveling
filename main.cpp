@@ -41,8 +41,11 @@ int main(){
 	tempTime = ((double)time->tv_sec-startSec) + (((double)time->tv_usec-startuSec)*0.000001);
 	cout << "Time for Brute Force(s): " << tempTime << endl;
 	
-	GeneticAlg ga
+	GeneticAlg ga(cw, c, t, g, p);
+	ga.run();
+	ga.printGens();
 	
+	free(time);
 	return 0;
 }
 
@@ -56,10 +59,10 @@ void getInput(int& c, int& t, int& g, int& p){
 		cout << endl;
 	}
 	cout << "----------Genetic Parameters----------" << endl;
-	cout << "Please enter the number of tours in a generation(>=5): ";
+	cout << "Please enter the number of tours in a generation(>=2): ";
 	cin >> t;
 	cout << endl << endl;;
-	while(t < 5){
+	while(t < 2){
 		cout << "Invalid size please re-enter: ";
 		cin >> t;
 		cout << endl << endl;
