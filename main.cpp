@@ -12,9 +12,10 @@ void setCW(double a[][20]);
 void getInput(int&, int&, int&, int&);
 
 int main(){
+	srand(time(NULL));
 	double cw[20][20];
 	int c, t, g, p;
-	double optimal, tempTime;
+	double optimal, tempTime, gaoptimal;
 	setCW(cw);
 	
 	struct timeval * time;
@@ -39,11 +40,21 @@ int main(){
 	gettimeofday(time,NULL);	
 	cout << "Optimal Cost from Brute Force: " << optimal << endl;
 	tempTime = ((double)time->tv_sec-startSec) + (((double)time->tv_usec-startuSec)*0.000001);
-	cout << "Time for Brute Force(s): " << tempTime << endl;
+	cout << "Time for Brute Force(s): " << tempTime << endl << endl;
 	
-	GeneticAlg ga(cw, c, t, g, p);
-	ga.run();
-	ga.printGens();
+
+	GeneticAlg ga(cw, c, t, g, p, true);
+	gettimeofday(time,NULL);
+	startSec = time->tv_sec;
+	startuSec = time->tv_usec;	
+	gaoptimal = ga.run();
+	gettimeofday(time,NULL);	
+	tempTime = ((double)time->tv_sec-startSec) + (((double)time->tv_usec-startuSec)*0.000001);	
+	cout << "Optimal Cost from Genetic Algorithm: " << gaoptimal << endl;
+	cout << "Time for Genetic Algorithm(s): " << tempTime << endl << endl;
+	
+	cout << "Genetic Algorithm Percent of Optimal: " << ((gaoptimal-optimal)/optimal)*100 << "%" << endl;
+	
 	
 	free(time);
 	return 0;
